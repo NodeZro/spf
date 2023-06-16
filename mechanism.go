@@ -274,7 +274,7 @@ func parseMechanism(r Result, str, domain string) (Mechanism, error) {
 
 	m.Result = r
 	m.Domain = d
-	m.Name = n
+	m.Name = strings.ToLower(n)
 	m.Prefix = p
 
 	return m, nil
