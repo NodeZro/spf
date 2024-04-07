@@ -24,7 +24,7 @@ var (
 	ErrNoMatch = errors.New("Client was not covered by the mechanism.")
 )
 
-// Mechanism represents a single mechanism in an SPF record.
+// Mechanism represents a single mechanism in an SPF record. 
 type Mechanism struct {
 	Name   string
 	Domain string      `json:"omitempty"`
