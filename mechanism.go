@@ -27,10 +27,11 @@ var (
 // Mechanism represents a single mechanism in an SPF record.
 type Mechanism struct {
 	Name   string
-	Domain string
-	Prefix string
+	Domain string      `json:"omitempty"`
+	Prefix string      `json:"omitempty"`
 	Result Result
-	Count  int
+	Count  int         `json:"-"`
+	Sub    []Mechanism `json:"omitempty"`
 }
 
 // Return a Mechanism as a string
