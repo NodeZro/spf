@@ -18,6 +18,7 @@ const (
 	None      Result = "None"
 	TempError Result = "TempError"
 	PermError Result = "PermError"
+	Modifier  Result = "Modifier"
 )
 
 var (
@@ -107,6 +108,8 @@ func (m *Mechanism) Valid() bool {
 	var isIP bool
 
 	switch m.Result {
+	case Modifier:
+		return true // all modifiers are valid
 	case Pass, Fail, SoftFail, Neutral:
 		hasResult = true
 	default:
@@ -114,7 +117,7 @@ func (m *Mechanism) Valid() bool {
 	}
 
 	switch m.Name {
-	case "all", "a", "mx", "ip4", "ip6", "exists", "include", "ptr", "redirect":
+	case "all", "a", "mx", "ip4", "ip6", "exists", "include", "ptr":
 		hasName = true
 	default:
 		hasName = false
@@ -238,6 +241,7 @@ func parseMechanism(r Result, str, domain string) (Mechanism, error) {
 	case ei != -1:
 		n = str[:ei]
 		d = str[ei+1:]
+		r = Modifier
 
 		// Domain should not be empty
 		if d == "" {
